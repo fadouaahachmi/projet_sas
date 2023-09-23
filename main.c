@@ -4,39 +4,61 @@
   typedef struct {
         char titre[50],description[50],statut[50],tach[50];
         char deadline[50];
-
-
   }tach;
+
+  typedef struct{
+        char titre[50],description[50],statut[50],tach[50];
+        char deadline[50];
+  }temp;
+
+
    tach taches[50];
-void menu(int index,char oui_non[4],int tri,int i,char temp){
+   int ID_supprimer;
+   int index=0;
+
+
+
+
+  int main(){
+   menu();
+
+   return 0;
+  }
+
+
+
+void menu(){
     int choix;
-
-
+    char oui_non[4];
   do{
     printf("________________________________| MENU |______________________________\n\n");
     printf(" [1] Ajouter une nouvelle tache.\n [2] Ajouter plusieurs nouvelles taches.\n [3] Afficher la liste de toutes les taches. \n [4] Modifier une tache. \n [5] Supprimer une tache par identifiant.\n [6] Rechercher les Taches.\n [7] Statistiques. \n\n");
     printf("_______________________________________________________________________\n\n");
     printf("  Tapez votre choix : ");
     scanf("%d",&choix);
+     system("cls");
    switch(choix){
-       system("cls");
      case 1:
-      ajoute(index);
+      ajoute();
+       system("cls");
       break;
      case 2 :
-      ajoute(index);
+      ajoute();
       for(int i=0;i<=50;i++){
        printf("Voulez-vous ajouter une autre tache?\n _oui/non: \n");
        scanf("%s",oui_non);
-       if(strcmp(oui_non,"oui")==0)
-       ajoute(index);
+       if(strcmp(oui_non,"oui")==0){
+       ajoute();
+        system("cls");
+        }
        else{
         break;
         }
         }
+        system("cls");
        break;
      case 3 :
-            affiche(tri,index,i,temp);
+            affiche(index);
         break;
      case 4 :{
          int choix_modification;
@@ -57,6 +79,21 @@ void menu(int index,char oui_non[4],int tri,int i,char temp){
             }
         break;
      case 5 :
+       /*{
+             printf("entrez l'ID de la taches que vous souhaitez supprimer :");
+             scanf("%d",&ID_supprimer);
+             for(i=0;i<index;i++){
+                if(index==ID_recherche){
+                    for(j=i;j<)
+                }
+             }
+         }*/
+
+
+
+
+
+
         break;
      case 6 :{
         int i=0;
@@ -100,7 +137,9 @@ void menu(int index,char oui_non[4],int tri,int i,char temp){
           }
      }
         break;
-     case 7 :
+     case 7 :{
+          printf("le nombre du tches que vous avez ajoute c'est : %d\n\n",index);
+            }
         break;
 
     }
@@ -109,36 +148,25 @@ void menu(int index,char oui_non[4],int tri,int i,char temp){
   }while (1);
 }
 
-
-int main(){
-int index=0,i;
-char oui_non[4];
-int tri;
-char temp;
-   menu(index,oui_non,tri,i,temp);
-
-   return 0;
-  }
-
-
-  void affiche(int i,int index,int tri,char temp){
-
-      printf("titre :%s\n,description:%s\n,statut:%s\n,deadline:%s\n",taches[0].titre,taches[0].description,taches[0].statut,taches[0].deadline);
-
+  void affiche(int index){
+          int choix;
+          char temp;
         printf("voulez-vous trier les taches par ordre : \n [1] alphabetique.\n [2] deadline. \n");
-        scanf("%d",&tri);
-        switch(tri){
+        scanf("%d",&choix);
+        switch(choix){
             case 1:{
-
                 char temp[50];
-                for(int i=0;i<=index-1;i++){
-                for(int j=0;j<=index-1-i;j++){
-                if(strcmp(taches[j].titre,taches[j+1].titre)>0){
-                  strcpy(temp,taches[j].titre);
-                  strcpy(taches[j].titre,taches[j+1].titre);
-                  strcpy(taches[j+1].titre,temp);
-                }
-                }
+                for(int i=0;i<index;i++)
+                {
+                    for(int j=i+1;j<index;j++)
+                    {
+                        if(strcmp(taches[i].titre,taches[j].titre)>0)
+                        {
+                            strcpy(temp,taches[i].titre);
+                            strcpy(taches[i].titre,taches[j].titre);
+                            strcpy(taches[j].titre,temp);
+                        }
+                    }
                 }
            for(int i=0;i<index;i++){
                   printf("le titre de la tache c'est :%s \n",taches[i].titre);
@@ -149,14 +177,15 @@ char temp;
             }
             break;
             default:
-            printf("SVP enterez 1,2ou 3.\n");
+            printf("SVP enterez 1,2 ou 3.\n");
+            break;
     }
 
  }
 
 
 
-    void ajoute(int index){
+    void ajoute(){
          char choix_statut;
       printf("ecrit le titre de la tache :");
       scanf(" %[^\n]s",taches[index].titre);
@@ -222,7 +251,7 @@ char temp;
                      strcpy(taches[index].statut ,"finalisee");
                      break;
                   default :
-                     printf("choisir 1,2 ou 3");
+                     printf("choisir 1,2 ou 3\n");
                      break;
             }
             }
@@ -248,12 +277,3 @@ char temp;
                 printf("l'id est introuvable.");
          }
  }
-
-
-
-
-
-
-
-
-
